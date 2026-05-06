@@ -1,3 +1,0 @@
-python -m src.main --benchmark sdfc --scenario shared_head --training-regime joint --tasks 4 --epochs 1 --batch-size 128 --model film_full --apical-init-gain 4 --seed 0 --output-dir ./results_joint_reference_smoke --run-name "joint_film_smoke"
-python -m src.main --benchmark sdfc --scenario shared_head --training-regime joint --tasks 4 --epochs 1 --batch-size 128 --model dendritic_affine_separate --apical-init-gain 4 --seed 0 --output-dir ./results_joint_reference_smoke --run-name "joint_affine_smoke"
-python .\scripts\aggregate_results.py --input .\results_joint_reference_smoke\runs_summary.csv --output-dir .\results_joint_reference_smoke

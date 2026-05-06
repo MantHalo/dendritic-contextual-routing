@@ -1,7 +1,0 @@
-{
-  "benchmark_name": "sdfc",
-  "benchmark_seed": 12345,
-  "input_dim": 32,
-  "latent_dim": 8,
-  "noise_sigma": 0.1
-}

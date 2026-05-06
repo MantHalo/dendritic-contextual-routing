@@ -1,5 +1,0 @@
-scenario: task_il
-tasks: 4
-epochs: 5
-batch_size: 128
-hidden_dims: [128, 128]
