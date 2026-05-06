@@ -26,7 +26,7 @@ results/**/models/
 *.ckpt
 *.log
 
-# Keep final CSV and figures
+# Keep curated final CSV and figures
 !results/raw_csv/*.csv
 !results/main_tables/*.csv
 !results/main_tables/*.md

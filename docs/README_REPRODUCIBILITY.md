@@ -1,6 +1,6 @@
 # Reproducibility Guide
 
-This document describes how to reproduce the final Dendritic v2 / SDFC shared-head results.
+This guide explains how to reproduce the final Dendritic v2 / SDFC shared-head results.
 
 ## Environment
 
@@ -20,15 +20,7 @@ Install dependencies:
 python -m pip install -r requirements.txt
 ```
 
-If no `requirements.txt` is present yet, create one from the working environment:
-
-```powershell
-python -m pip freeze > requirements.txt
-```
-
-## Step 1 — Generate the fixed benchmark projection
-
-The SDFC benchmark uses a fixed projection matrix `P`.
+## Step 1 — Generate the fixed SDFC benchmark projection
 
 ```powershell
 python -m src.main --make-benchmark --benchmark-seed 12345
@@ -37,14 +29,11 @@ python -m src.main --make-benchmark --benchmark-seed 12345
 Expected output:
 
 ```text
-artifacts/
+artifacts/projection_P.npy
+artifacts/benchmark_meta.json
 ```
 
-containing the fixed benchmark projection.
-
 ## Step 2 — Joint-training reference
-
-This run establishes the upper bound under non-sequential training.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_joint_multiseed.ps1
@@ -55,11 +44,6 @@ Expected output:
 ```text
 results_joint_reference/aggregated_summary.csv
 ```
-
-Expected result:
-
-- `film_full` ≈ 96%
-- `dendritic_affine_separate` ≈ 96%
 
 ## Step 3 — Sequential micro-buffer sweep
 
@@ -85,7 +69,7 @@ epoch_diagnostics_summary.csv
 runs_summary.csv
 ```
 
-## Step 4 — Verify replay budgets
+## Verify replay budgets
 
 All final CSVs should contain the replay fractions:
 
@@ -105,7 +89,7 @@ and the replay sizes:
 1000
 ```
 
-If a file contains `0.20` or `2000`, it belongs to the older 0/5/20% sweep and should not be used for the final paper tables.
+If a file contains `0.20` or `2000`, it belongs to the older 0/5/20% sweep and should not be used for final paper tables.
 
 ## Expected main results
 
@@ -120,53 +104,22 @@ If a file contains `0.20` or `2000`, it belongs to the older 0/5/20% sweep and s
 | dendritic_affine_separate | 5% | ~95.9% | ~0.4% |
 | dendritic_affine_separate | 10% | ~96.0% | ~0.4% |
 
-## Figure generation
+## Optional smoke tests
 
-Use the final CSV files to generate:
-
-1. Accuracy and forgetting vs replay budget.
-2. Accuracy matrices `A[i,j]`.
-3. Gate similarity for mirror vs non-mirror task pairs.
-
-The final figure pack should include:
-
-```text
-fig1a_accuracy_vs_replay.png
-fig1b_forgetting_vs_replay.png
-fig2_matrix_*.png
-fig3_gate_similarity_mirror_vs_nonmirror.png
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_joint_smoke.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_microbuffer_smoke.ps1
 ```
 
 ## Common pitfalls
 
-### Mixed CSV files
+Do not mix CSV files from `0 / 5 / 20%` with files from `0 / 2 / 5 / 10%`.
 
-Do not mix files from:
-
-```text
-0 / 5 / 20%
-```
-
-with files from:
+The clean repository should not contain:
 
 ```text
-0 / 2 / 5 / 10%
-```
-
-### Smoke tests
-
-Smoke tests are optional. They are useful for checking that the pipeline runs, but they are not required for the final multi-seed results.
-
-### PowerShell policy
-
-If scripts are blocked:
-
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-```
-
-or run:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\script_name.ps1
+src/src/
+scripts/scripts/
+configs/configs/
+artifacts/artifacts/
 ```

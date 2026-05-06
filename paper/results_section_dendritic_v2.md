@@ -26,9 +26,9 @@ Across all replay budgets, `film_full` and `dendritic_affine_separate` remain st
 
 ## Sequential training without memory is fragile
 
-In sequential training without replay, both `film_full` and `dendritic_affine_separate` reach only about 64% final average accuracy and suffer roughly 43% forgetting. This shows that contextual modulation alone is not sufficient to preserve earlier tasks under sequential feature-sign interference.
+In sequential training without replay, both `film_full` and `dendritic_affine_separate` reach only about 64% final average accuracy and suffer roughly 43% forgetting.
 
-The oldest task is especially affected. For `film_full`, task 0 falls to approximately 28% final accuracy after the full sequence, despite being learned well initially. This task is also part of an antagonistic mirror pair with task 3.
+For `film_full`, task 0 falls to approximately 28% final accuracy after the full sequence, despite being learned well initially. This task is also part of an antagonistic mirror pair with task 3.
 
 ## Micro-replay nearly closes the gap to joint training
 
@@ -42,24 +42,13 @@ Increasing the buffer beyond 2% yields only marginal gains:
 - 5% replay: approximately 95.9% accuracy
 - 10% replay: approximately 96.0% accuracy
 
-Thus, most of the benefit is obtained at the smallest nonzero replay budget.
-
 ## Architecture equivalence under replay
 
-The comparison between `film_full` and `dendritic_affine_separate` remains nearly identical at every replay level:
-
-- 0%
-- 2%
-- 5%
-- 10%
-
-This confirms that the affine dendritic variant successfully recovers the performance of FiLM-style contextual modulation. The remaining bottleneck is not the architectural realization of the affine primitive, but whether the contextual solution is preserved during sequential learning.
+The comparison between `film_full` and `dendritic_affine_separate` remains nearly identical at every replay level. This confirms that the affine dendritic variant successfully recovers the performance of FiLM-style contextual modulation.
 
 ## Gate-similarity diagnostics
 
 Gate-similarity diagnostics show only modest changes under replay. This suggests that replay primarily stabilizes an already useful contextual routing structure rather than creating an entirely new routing organization.
-
-The performance recovery is therefore best interpreted as a stabilization effect: contextual routing provides the right computational degrees of freedom, and micro-replay prevents sequential updates from destroying the solution.
 
 ## Summary
 

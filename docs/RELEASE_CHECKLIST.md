@@ -1,51 +1,74 @@
 # Release Checklist
 
-## Before publishing the repository
+## Local repository
 
-### Code
+- [ ] `python -m src.main --help` works.
+- [ ] `python -m src.main --make-benchmark --benchmark-seed 12345` works.
+- [ ] `git status` returns a clean working tree.
+- [ ] Branch is `main`.
 
-- [ ] Remove old broken packs and temporary zip files.
-- [ ] Keep only the final clean source tree.
-- [ ] Ensure `src.main` runs from the repository root.
-- [ ] Ensure all scripts use valid Windows paths.
-- [ ] Ensure aggregation scripts deduplicate by `run_name`.
+## Repository structure
 
-### Results
+- [ ] `src/`
+- [ ] `scripts/`
+- [ ] `configs/`
+- [ ] `artifacts/`
+- [ ] `docs/`
+- [ ] `paper/`
+- [ ] `results/raw_csv/`
+- [ ] `results/main_tables/`
+- [ ] `README.md`
+- [ ] `CITATION.cff`
+- [ ] `LICENSE`
+- [ ] `.gitignore`
+- [ ] `requirements.txt`
 
-- [ ] Keep final CSVs for the 0/2/5/10% micro-buffer sweep.
-- [ ] Keep joint-training reference CSVs.
-- [ ] Move old 0/5/20% sweep to an archive or remove it from main results.
-- [ ] Ensure no final table mixes old and new replay budgets.
+## Final scripts only
 
-### Figures
+Keep:
 
-- [ ] Add Figure 1a: accuracy vs replay.
-- [ ] Add Figure 1b: forgetting vs replay.
-- [ ] Add Figure 2: accuracy matrices.
-- [ ] Add Figure 3: gate similarity mirror vs non-mirror.
-- [ ] Check all figure captions.
+- [ ] `scripts/aggregate_results.py`
+- [ ] `scripts/run_sdfc_replay_joint_smoke.ps1`
+- [ ] `scripts/run_sdfc_replay_joint_multiseed.ps1`
+- [ ] `scripts/run_sdfc_replay_microbuffer_smoke.ps1`
+- [ ] `scripts/run_sdfc_replay_microbuffer_multiseed.ps1`
 
-### Documentation
+## GitHub
 
-- [ ] README.md
-- [ ] README_REPRODUCIBILITY.md
-- [ ] EXPERIMENT_LOG.md
-- [ ] results_section_dendritic_v2.md
-- [ ] requirements.txt
-- [ ] LICENSE
-- [ ] CITATION.cff
+- [ ] Repository pushed to `https://github.com/OPAL-dev/dendritic-contextual-routing`
+- [ ] Description set.
+- [ ] Topics added.
+- [ ] README renders correctly.
+- [ ] License detected.
+- [ ] Citation button works.
 
-### GitHub release
+Suggested topics:
 
-- [ ] Create public GitHub repository.
-- [ ] Push clean code and results.
-- [ ] Add final figures.
-- [ ] Tag release as `v0.1.0`.
-- [ ] Write release notes.
-- [ ] Connect repository to Zenodo.
-- [ ] Archive release and obtain DOI.
+```text
+continual-learning
+contextual-routing
+dendritic-networks
+film
+replay-buffer
+pytorch
+machine-learning
+neural-networks
+```
 
-### Optional
+## GitHub release
 
-- [ ] Deposit manuscript on HAL.
-- [ ] Seek arXiv endorsement later if needed.
+- [ ] Create release `v0.1.0`.
+- [ ] Title: `Dendritic Contextual Routing v0.1.0`.
+- [ ] Mention final replay sweep and main result in release notes.
+
+## Zenodo
+
+- [ ] Connect GitHub repository to Zenodo.
+- [ ] Archive release `v0.1.0`.
+- [ ] Verify DOI.
+- [ ] Add DOI badge to README after Zenodo creates it.
+
+## Optional
+
+- [ ] Deposit on HAL.
+- [ ] Prepare arXiv later if endorsement is available.

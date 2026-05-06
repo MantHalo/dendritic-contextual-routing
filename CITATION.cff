@@ -3,17 +3,18 @@ title: "Dendritic Contextual Routing: Affine Modulation and Micro-Replay for Seq
 message: "If you use this repository, please cite it using this metadata."
 type: software
 authors:
-  - family-names: "Yifit"
-    given-names: "Researcher"
+  - name: "Yifit / OPAL-dev"
 abstract: "Reproducibility package for experiments on contextual affine modulation, dendritic-inspired routing, and micro-replay in sequential feature-conflict learning."
 version: "0.1.0"
 date-released: "2026-05-06"
-repository-code: "https://github.com/USERNAME/dendritic-contextual-routing"
+repository-code: "https://github.com/OPAL-dev/dendritic-contextual-routing"
 license: "MIT"
 keywords:
   - continual learning
   - contextual routing
   - dendritic neural networks
+  - affine modulation
   - FiLM
-  - replay
+  - replay buffer
   - representation learning
+  - PyTorch
