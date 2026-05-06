@@ -1,0 +1,9 @@
+model,replay,replay_size,mirror_pair_0_3_accuracy_%,mirror_pair_1_2_accuracy_%
+film_full,0%,0,62.14,65.69
+film_full,2%,200,95.1,95.78
+film_full,5%,500,95.62,96.21
+film_full,10%,1000,95.7,96.32
+dendritic_affine_separate,0%,0,62.3,65.37
+dendritic_affine_separate,2%,200,95.02,95.79
+dendritic_affine_separate,5%,500,95.56,96.26
+dendritic_affine_separate,10%,1000,95.71,96.32

@@ -1,0 +1,3 @@
+benchmark,scenario,training_regime,model,variant_name,replay_fraction_per_task,replay_size_per_task,mean_accuracy,std_accuracy,mean_forgetting,std_forgetting,mean_bwt,std_bwt,n
+sdfc,shared_head,joint,dendritic_affine_separate,dendritic_affine_separate_shared_head_joint_tasks4_epochs5_hd128-128_lr1e-03_aplr1_apinit4_temp1_replaypct0_replaysize0,0.0,0,0.962575,0.0004968651728588355,0.0,0.0,0.0,0.0,5
+sdfc,shared_head,joint,film_full,film_full_shared_head_joint_tasks4_epochs5_hd128-128_lr1e-03_aplr1_apinit4_temp1_replaypct0_replaysize0,0.0,0,0.962775,0.0010208758494547317,0.0,0.0,0.0,0.0,5

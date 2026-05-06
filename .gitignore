@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large / temporary experiment outputs
+results/**/checkpoints/
+results/**/models/
+*.pt
+*.pth
+*.ckpt
+*.log
+
+# Keep final CSV and figures
+!results/raw_csv/*.csv
+!results/main_tables/*.csv
+!results/main_tables/*.md
+!paper/figures/*.png
+
+# Archives
+*.zip
+*.rar
+*.7z

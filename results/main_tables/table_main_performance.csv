@@ -1,0 +1,9 @@
+model,replay,replay_size_per_task,accuracy_%,forgetting_%,bwt,n
+dendritic_affine_separate,0%,0,63.83,43.2,-0.432,5
+dendritic_affine_separate,2%,200,95.41,1.06,-0.0106,5
+dendritic_affine_separate,5%,500,95.91,0.42,-0.0033,5
+dendritic_affine_separate,10%,1000,96.02,0.36,-0.0021,5
+film_full,0%,0,63.91,43.16,-0.4316,5
+film_full,2%,200,95.44,1.05,-0.0105,5
+film_full,5%,500,95.91,0.49,-0.0041,5
+film_full,10%,1000,96.02,0.31,-0.0019,5
