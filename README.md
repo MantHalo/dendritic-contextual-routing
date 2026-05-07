@@ -1,5 +1,7 @@
 # Dendritic Contextual Routing
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20061116.svg)](https://doi.org/10.5281/zenodo.20061116)
+
 Dendritic-inspired contextual routing with affine modulation and micro-replay for sequential feature-conflict learning.
 
 This repository is a reproducibility package for experiments on **contextual affine modulation**, **dendritic-inspired routing**, and **micro-replay** in sequential learning.

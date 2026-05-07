@@ -8,6 +8,7 @@ abstract: "Reproducibility package for experiments on contextual affine modulati
 version: "0.1.0"
 date-released: "2026-05-06"
 repository-code: "https://github.com/TON_USERNAME/dendritic-contextual-routing"
+doi: "10.5281/zenodo.20061116"
 license: "MIT"
 keywords:
   - continual learning
