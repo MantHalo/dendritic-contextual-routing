@@ -2,7 +2,7 @@
   "title": "Dendritic Contextual Routing: Affine Modulation and Micro-Replay for Sequential Feature Conflicts",
   "creators": [
     {
-      "name": "Yifit / OPAL-dev"
+      "name": "MantHalo / OPAL-dev"
     }
   ],
   "description": "Reproducibility package for experiments on contextual affine modulation, dendritic-inspired routing, and micro-replay in sequential feature-conflict learning.",
