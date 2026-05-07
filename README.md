@@ -28,7 +28,7 @@ On SDFC shared-head, models without useful contextual conditioning remain near c
 
 In sequential training, however, even strong context-conditioned models suffer severe interference. A small replay buffer fixes this:
 
-> A replay buffer containing only **2% of each taskâ€™s training set** raises final accuracy from about **64%** to **95.4%** and reduces forgetting from about **43%** to **1%**, nearly matching joint training.
+> A replay buffer containing only **2% of each task's training set** raises final accuracy from about **64%** to **95.4%** and reduces forgetting from about **43%** to **1%**, nearly matching joint training.
 
 The oldest mirror-conflicted task, **task 0**, recovers from about **28%** to **94%** with only a **2%** replay buffer.
 
@@ -40,15 +40,15 @@ The oldest mirror-conflicted task, **task 0**, recovers from about **28%** to **
 2. A simple multiplicative dendritic gate is insufficient.
 3. The useful primitive is **additive + multiplicative affine modulation**:
 
-   ```text
-   h = gamma(context) * h_basal + beta(context)
-   ```
+```text
+h = gamma(context) * h_basal + beta(context)
+```
 
 4. A separated affine dendritic variant implements the same functional primitive:
 
-   ```text
-   h = g(context) âŠ™ h_basal + a(context)
-   ```
+```text
+h = g(context) * h_basal + a(context)
+```
 
 5. `film_full` and `dendritic_affine_separate` are statistically indistinguishable across replay budgets.
 6. Micro-replay preserves the contextual solution under sequential learning.
@@ -83,27 +83,23 @@ Earlier experimental branches also included MLP baselines, no-context dendritic 
 
 ## Repository structure
 
-```text
-.
-â”œâ”€â”€ src/
-â”œâ”€â”€ scripts/
-â”œâ”€â”€ configs/
-â”œâ”€â”€ artifacts/
-â”œâ”€â”€ results/
-â”‚   â”œâ”€â”€ raw_csv/
-â”‚   â”œâ”€â”€ processed/
-â”‚   â””â”€â”€ main_tables/
-â”œâ”€â”€ paper/
-â”‚   â”œâ”€â”€ figures/
-â”‚   â””â”€â”€ results_section_dendritic_v2.md
-â”œâ”€â”€ docs/
-â”‚   â”œâ”€â”€ README_REPRODUCIBILITY.md
-â”‚   â”œâ”€â”€ EXPERIMENT_LOG.md
-â”‚   â””â”€â”€ RELEASE_CHECKLIST.md
-â”œâ”€â”€ CITATION.cff
-â”œâ”€â”€ LICENSE
-â””â”€â”€ README.md
-```
+Main folders:
+
+- `src/` - source code
+- `scripts/` - PowerShell scripts for reproducing the final runs
+- `configs/` - experiment configuration files
+- `artifacts/` - fixed SDFC benchmark projection
+- `results/raw_csv/` - curated raw CSV outputs
+- `results/main_tables/` - final paper tables
+- `results/processed/` - optional processed outputs
+- `paper/figures/` - final figures
+- `paper/results_section_dendritic_v2.md` - paper-ready results section
+- `docs/README_REPRODUCIBILITY.md` - reproduction guide
+- `docs/EXPERIMENT_LOG.md` - experiment history
+- `docs/RELEASE_CHECKLIST.md` - release checklist
+- `CITATION.cff` - citation metadata
+- `LICENSE` - MIT license
+- `README.md` - project overview
 
 ---
 
@@ -158,7 +154,7 @@ paper/figures/
 
 This project was developed under **OPAL-dev / OPAL.inc** as an independent research exploration on contextual routing, continual learning, and dendritic-inspired architectures.
 
-Main research and implementation: **Yifit / OPAL-dev**.
+Main research and implementation: **MantHalo / OPAL-dev**.
 
 Experimental design and analysis were assisted by multiple AI systems and cross-checked through iterative review.
 
@@ -168,11 +164,14 @@ Experimental design and analysis were assisted by multiple AI systems and cross-
 
 If you use this repository, please cite it using the metadata in [`CITATION.cff`](./CITATION.cff).
 
-A release DOI can be generated through Zenodo by archiving a GitHub release.
+The archived release is available through Zenodo:
+
+```text
+https://doi.org/10.5281/zenodo.20061176
+```
 
 ---
 
 ## License
 
 This project is released under the MIT License. See [`LICENSE`](./LICENSE).
-
