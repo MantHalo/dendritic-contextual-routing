@@ -6,7 +6,7 @@ This repository is a reproducibility package for experiments on **contextual aff
 
 Developed under **OPAL-dev / OPAL.inc** as an independent research exploration on dendritic-inspired contextual routing, affine modulation, and micro-replay for continual learning.
 
-Repository: <https://github.com/OPAL-dev/dendritic-contextual-routing>
+Repository: <https://github.com/TON_USERNAME/dendritic-contextual-routing>
 
 ---
 
