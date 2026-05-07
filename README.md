@@ -1,6 +1,6 @@
-# Dendritic Contextual Routing
+﻿# Dendritic Contextual Routing
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20061116.svg)](https://doi.org/10.5281/zenodo.20061116)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20061176.svg)](https://doi.org/10.5281/zenodo.20061176)
 
 Dendritic-inspired contextual routing with affine modulation and micro-replay for sequential feature-conflict learning.
 
@@ -28,7 +28,7 @@ On SDFC shared-head, models without useful contextual conditioning remain near c
 
 In sequential training, however, even strong context-conditioned models suffer severe interference. A small replay buffer fixes this:
 
-> A replay buffer containing only **2% of each task’s training set** raises final accuracy from about **64%** to **95.4%** and reduces forgetting from about **43%** to **1%**, nearly matching joint training.
+> A replay buffer containing only **2% of each taskâ€™s training set** raises final accuracy from about **64%** to **95.4%** and reduces forgetting from about **43%** to **1%**, nearly matching joint training.
 
 The oldest mirror-conflicted task, **task 0**, recovers from about **28%** to **94%** with only a **2%** replay buffer.
 
@@ -47,7 +47,7 @@ The oldest mirror-conflicted task, **task 0**, recovers from about **28%** to **
 4. A separated affine dendritic variant implements the same functional primitive:
 
    ```text
-   h = g(context) ⊙ h_basal + a(context)
+   h = g(context) âŠ™ h_basal + a(context)
    ```
 
 5. `film_full` and `dendritic_affine_separate` are statistically indistinguishable across replay budgets.
@@ -85,24 +85,24 @@ Earlier experimental branches also included MLP baselines, no-context dendritic 
 
 ```text
 .
-├── src/
-├── scripts/
-├── configs/
-├── artifacts/
-├── results/
-│   ├── raw_csv/
-│   ├── processed/
-│   └── main_tables/
-├── paper/
-│   ├── figures/
-│   └── results_section_dendritic_v2.md
-├── docs/
-│   ├── README_REPRODUCIBILITY.md
-│   ├── EXPERIMENT_LOG.md
-│   └── RELEASE_CHECKLIST.md
-├── CITATION.cff
-├── LICENSE
-└── README.md
+â”œâ”€â”€ src/
+â”œâ”€â”€ scripts/
+â”œâ”€â”€ configs/
+â”œâ”€â”€ artifacts/
+â”œâ”€â”€ results/
+â”‚   â”œâ”€â”€ raw_csv/
+â”‚   â”œâ”€â”€ processed/
+â”‚   â””â”€â”€ main_tables/
+â”œâ”€â”€ paper/
+â”‚   â”œâ”€â”€ figures/
+â”‚   â””â”€â”€ results_section_dendritic_v2.md
+â”œâ”€â”€ docs/
+â”‚   â”œâ”€â”€ README_REPRODUCIBILITY.md
+â”‚   â”œâ”€â”€ EXPERIMENT_LOG.md
+â”‚   â””â”€â”€ RELEASE_CHECKLIST.md
+â”œâ”€â”€ CITATION.cff
+â”œâ”€â”€ LICENSE
+â””â”€â”€ README.md
 ```
 
 ---
@@ -175,3 +175,4 @@ A release DOI can be generated through Zenodo by archiving a GitHub release.
 ## License
 
 This project is released under the MIT License. See [`LICENSE`](./LICENSE).
+

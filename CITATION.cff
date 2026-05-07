@@ -1,15 +1,15 @@
-cff-version: 1.2.0
+﻿cff-version: 1.2.0
 title: "Dendritic Contextual Routing: Affine Modulation and Micro-Replay for Sequential Feature Conflicts"
 message: "If you use this repository, please cite it using this metadata."
 type: software
 authors:
-  - alias: "MantHalo"
+  - name: "MantHalo"
   - name: "OPAL-dev"
 abstract: "Reproducibility package for experiments on contextual affine modulation, dendritic-inspired routing, and micro-replay in sequential feature-conflict learning."
-version: "0.1.0"
-date-released: "2026-05-06"
+version: "0.1.1"
+date-released: "2026-05-07"
 repository-code: "https://github.com/MantHalo/dendritic-contextual-routing"
-doi: "10.5281/zenodo.20061116"
+doi: "10.5281/zenodo.20061176"
 license: "MIT"
 keywords:
   - continual learning
