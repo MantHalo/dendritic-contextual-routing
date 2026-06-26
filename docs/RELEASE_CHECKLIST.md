@@ -1,13 +1,15 @@
 # Release Checklist
 
-## Local repository
+## Local Repository
 
 - [ ] `python -m src.main --help` works.
 - [ ] `python -m src.main --make-benchmark --benchmark-seed 12345` works.
+- [ ] `python .\scripts\make_readme_figures.py` works.
+- [ ] `python -m pytest -q` works.
 - [ ] `git status` returns a clean working tree.
 - [ ] Branch is `main`.
 
-## Repository structure
+## Repository Structure
 
 - [ ] `src/`
 - [ ] `scripts/`
@@ -22,12 +24,14 @@
 - [ ] `LICENSE`
 - [ ] `.gitignore`
 - [ ] `requirements.txt`
+- [ ] `requirements-dev.txt`
 
-## Final scripts only
+## Final Scripts
 
 Keep:
 
 - [ ] `scripts/aggregate_results.py`
+- [ ] `scripts/make_readme_figures.py`
 - [ ] `scripts/run_sdfc_replay_joint_smoke.ps1`
 - [ ] `scripts/run_sdfc_replay_joint_multiseed.ps1`
 - [ ] `scripts/run_sdfc_replay_microbuffer_smoke.ps1`
@@ -35,12 +39,14 @@ Keep:
 
 ## GitHub
 
-- [ ] Repository pushed to `https://github.com/OPAL-dev/dendritic-contextual-routing`
+- [ ] Repository pushed to `https://github.com/MantHalo/dendritic-contextual-routing`.
 - [ ] Description set.
 - [ ] Topics added.
 - [ ] README renders correctly.
+- [ ] README shows the overview figure, SDFC feature-conflict figure, accuracy plot, forgetting plot, and one accuracy matrix.
 - [ ] License detected.
 - [ ] Citation button works.
+- [ ] CI workflow passes.
 
 Suggested topics:
 
@@ -53,18 +59,19 @@ replay-buffer
 pytorch
 machine-learning
 neural-networks
+feature-conflict
 ```
 
-## GitHub release
+## GitHub Release
 
-- [ ] Create release `v0.1.0`.
-- [ ] Title: `Dendritic Contextual Routing v0.1.0`.
-- [ ] Mention final replay sweep and main result in release notes.
+- [ ] Create release `v0.2.0`.
+- [ ] Title: `Dendritic Contextual Routing v0.2.0`.
+- [ ] Mention the README/figure refresh, SDFC benchmark framing, final replay sweep, and main 2% replay result in release notes.
 
 ## Zenodo
 
 - [ ] Connect GitHub repository to Zenodo.
-- [ ] Archive release `v0.1.0`.
+- [ ] Archive release `v0.2.0`.
 - [ ] Verify DOI.
 - [ ] Add DOI badge to README after Zenodo creates it.
 

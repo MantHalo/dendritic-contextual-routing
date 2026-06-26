@@ -8,7 +8,8 @@
       "name": "OPAL-dev"
     }
   ],
-  "description": "Reproducibility package for experiments on contextual affine modulation, dendritic-inspired routing, and micro-replay in sequential feature-conflict learning.",
+  "description": "Dendritic-inspired contextual routing for continual learning and feature-conflict resolution, including the SDFC benchmark, affine contextual modulation experiments, micro-replay results, curated figures, and reproducibility scripts.",
+  "version": "0.2.0",
   "license": "MIT",
   "keywords": [
     "continual learning",
@@ -18,6 +19,7 @@
     "FiLM",
     "replay buffer",
     "representation learning",
+    "feature conflict",
     "PyTorch"
   ],
   "upload_type": "software",

@@ -1,143 +1,70 @@
-﻿# Dendritic Contextual Routing
+# Dendritic Contextual Routing
 
 Biologically-inspired contextual routing for continual learning and feature-conflict resolution.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20061176.svg)](https://doi.org/10.5281/zenodo.20061176)
 
-Dendritic-inspired contextual routing with affine modulation and micro-replay for sequential feature-conflict learning.
+Biologically inspired contextual routing for continual learning and feature-conflict resolution.
 
-This repository is a reproducibility package for experiments on **contextual affine modulation**, **dendritic-inspired routing**, and **micro-replay** in sequential learning.
+This repository introduces and evaluates a dendritic-inspired mechanism for contextual routing. To study when context becomes necessary, it also introduces the SDFC benchmark, where the same input features must be interpreted differently depending on task context.
 
-Developed under **OPAL-dev / OPAL.inc** as an independent research exploration on dendritic-inspired contextual routing, affine modulation, and micro-replay for continual learning.
+The main finding is simple:
 
-Repository: <https://github.com/MantHalo/dendritic-contextual-routing>
+> Contextual affine modulation solves the feature-conflict structure; a 2% micro-replay buffer preserves it under sequential training.
 
----
+![Dendritic contextual routing overview](paper/figures/readme_overview.png)
 
-## Core question
+## Why This Matters
+
+Neural networks often fail when two tasks reuse the same features with opposite meanings. For example, one task may treat a feature as positive evidence while another task treats the same feature as negative evidence. A shared representation is then pulled in incompatible directions.
+
+SDFC, short for Same-Dimension Feature Conflict, turns this into a controlled benchmark. The model receives the same input dimensions across tasks, but the correct interpretation changes with task context. This makes it possible to ask a precise question:
 
 > When does contextual routing become functionally necessary, and what is required to preserve it under sequential training?
 
-The project studies this question through a controlled benchmark called **SDFC shared-head** (*Same-Dimension Feature Conflict*), where the same input dimensions must be interpreted differently across tasks.
+![SDFC feature conflict](paper/figures/sdfc_feature_conflict.png)
 
-This creates explicit feature-sign conflicts and mirror-task pairs, making it possible to test whether a model truly uses contextual control rather than merely learning a shared representation.
+## Contribution
 
----
+- A compact feature-conflict benchmark for contextual learning.
+- A dendritic affine routing model that separates basal features from contextual modulation.
+- A controlled comparison against FiLM-style affine modulation.
+- A micro-replay sweep showing that 2% replay nearly closes the sequential-learning gap.
+- Curated CSVs, figures, scripts, and citation metadata for reproducibility.
 
-## Main result
+## Core Idea
 
-On SDFC shared-head, models without useful contextual conditioning remain near chance level, while context-conditioned models solve the benchmark under joint training.
-
-In sequential training, however, even strong context-conditioned models suffer severe interference. A small replay buffer fixes this:
-
-> A replay buffer containing only **2% of each task's training set** raises final accuracy from about **64%** to **95.4%** and reduces forgetting from about **43%** to **1%**, nearly matching joint training.
-
-The oldest mirror-conflicted task, **task 0**, recovers from about **28%** to **94%** with only a **2%** replay buffer.
-
----
-
-## Key findings
-
-1. **Contextual conditioning is necessary** on SDFC shared-head.
-2. A simple multiplicative dendritic gate is insufficient.
-3. The useful primitive is **additive + multiplicative affine modulation**:
+The useful primitive is additive plus multiplicative contextual modulation:
 
 ```text
 h = gamma(context) * h_basal + beta(context)
 ```
 
-4. A separated affine dendritic variant implements the same functional primitive:
+The dendritic affine variant implements the same functional primitive:
 
 ```text
 h = g(context) * h_basal + a(context)
 ```
 
-5. `film_full` and `dendritic_affine_separate` are statistically indistinguishable across replay budgets.
-6. Micro-replay preserves the contextual solution under sequential learning.
+In this benchmark, the architectural framing matters less than the primitive: context must transform the representation, not merely appear as another input feature.
 
-In short:
+## Main Result
 
-> Contextual affine modulation solves the feature-conflict structure; micro-replay preserves it across sequential learning.
+Without replay, sequential training damages the contextual solution. With a buffer containing only 2% of each task's training set, final accuracy rises from about 64% to 95.4%, and average forgetting drops from about 43% to about 1%.
 
----
+![Accuracy versus replay budget](paper/figures/fig1a_accuracy_vs_replay.png)
 
-## Final replay budgets
+![Forgetting versus replay budget](paper/figures/fig1b_forgetting_vs_replay.png)
 
-| Replay fraction | Examples per task |
-|---:|---:|
-| 0% | 0 |
-| 2% | 200 |
-| 5% | 500 |
-| 10% | 1000 |
+The oldest mirror-conflicted task, task 0, recovers from about 28% to about 94% with only a 2% replay buffer.
 
----
+![FiLM accuracy matrix with 2 percent replay](paper/figures/fig2_matrix_film_full_replay2pct.png)
 
-## Final models
+Gate-similarity diagnostics suggest that replay stabilizes an already useful contextual routing structure rather than creating an entirely new one.
 
-The final comparison focuses on:
+![Gate similarity diagnostics](paper/figures/fig3_gate_similarity_readable.png)
 
-- `film_full`
-- `dendritic_affine_separate`
-
-Earlier experimental branches also included MLP baselines, no-context dendritic controls, additive/multiplicative ablations, apical unlock diagnostics, PermutedMNIST, and SplitMNIST controls.
-
----
-
-## Repository structure
-
-Main folders:
-
-- `src/` - source code
-- `scripts/` - PowerShell scripts for reproducing the final runs
-- `configs/` - experiment configuration files
-- `artifacts/` - fixed SDFC benchmark projection
-- `results/raw_csv/` - curated raw CSV outputs
-- `results/main_tables/` - final paper tables
-- `results/processed/` - optional processed outputs
-- `paper/figures/` - final figures
-- `paper/results_section_dendritic_v2.md` - paper-ready results section
-- `docs/README_REPRODUCIBILITY.md` - reproduction guide
-- `docs/EXPERIMENT_LOG.md` - experiment history
-- `docs/RELEASE_CHECKLIST.md` - release checklist
-- `CITATION.cff` - citation metadata
-- `LICENSE` - MIT license
-- `README.md` - project overview
-
----
-
-## Quick reproduction
-
-From the repository root:
-
-```powershell
-python -m src.main --make-benchmark --benchmark-seed 12345
-
-powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_joint_multiseed.ps1
-
-powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_microbuffer_multiseed.ps1
-```
-
-Curated final CSVs are stored in:
-
-```text
-results/raw_csv/
-```
-
-Final paper tables are stored in:
-
-```text
-results/main_tables/
-```
-
-Final figures are stored in:
-
-```text
-paper/figures/
-```
-
----
-
-## Main final results
+## Final Results
 
 | Model | Replay | Accuracy | Forgetting |
 |---|---:|---:|---:|
@@ -150,21 +77,78 @@ paper/figures/
 | `dendritic_affine_separate` | 5% | ~95.9% | ~0.4% |
 | `dendritic_affine_separate` | 10% | ~96.0% | ~0.4% |
 
----
+Replay budgets:
 
-## Attribution
+| Replay fraction | Examples per task |
+|---:|---:|
+| 0% | 0 |
+| 2% | 200 |
+| 5% | 500 |
+| 10% | 1000 |
 
-This project was developed under **OPAL-dev / OPAL.inc** as an independent research exploration on contextual routing, continual learning, and dendritic-inspired architectures.
+## Repository Layout
 
-Main research and implementation: **MantHalo / OPAL-dev**.
+- `src/` - source code for SDFC generation, models, metrics, and training.
+- `scripts/` - result aggregation and reproduction scripts.
+- `configs/` - experiment configuration files.
+- `artifacts/` - fixed SDFC projection and benchmark metadata.
+- `results/raw_csv/` - curated raw CSV outputs.
+- `results/main_tables/` - final paper tables.
+- `paper/figures/` - final plots and README figures.
+- `docs/README_REPRODUCIBILITY.md` - reproduction guide.
+- `docs/EXPERIMENT_LOG.md` - experiment history.
+- `CITATION.cff` - citation metadata.
 
-Experimental design and analysis were assisted by multiple AI systems and cross-checked through iterative review.
+## Quick Start
 
----
+Install dependencies:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+Generate the fixed benchmark projection:
+
+```powershell
+python -m src.main --make-benchmark --benchmark-seed 12345
+```
+
+Run the short smoke checks:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_joint_smoke.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_microbuffer_smoke.ps1
+```
+
+Regenerate README figures:
+
+```powershell
+python .\scripts\make_readme_figures.py
+```
+
+For full reproduction, see [`docs/README_REPRODUCIBILITY.md`](docs/README_REPRODUCIBILITY.md).
+
+## Full Reproduction
+
+From the repository root:
+
+```powershell
+python -m src.main --make-benchmark --benchmark-seed 12345
+powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_joint_multiseed.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_microbuffer_multiseed.ps1
+```
+
+Curated final outputs are stored in:
+
+```text
+results/raw_csv/
+results/main_tables/
+paper/figures/
+```
 
 ## Citation
 
-If you use this repository, please cite it using the metadata in [`CITATION.cff`](./CITATION.cff).
+If you use this repository, please cite it using the metadata in [`CITATION.cff`](CITATION.cff).
 
 The archived release is available through Zenodo:
 
@@ -172,8 +156,14 @@ The archived release is available through Zenodo:
 https://doi.org/10.5281/zenodo.20061176
 ```
 
----
+## Attribution
+
+This project was developed under OPAL-dev / OPAL.inc as an independent research exploration on contextual routing, continual learning, and dendritic-inspired architectures.
+
+Main research and implementation: MantHalo / OPAL-dev.
+
+Experimental design and analysis were assisted by multiple AI systems and cross-checked through iterative review.
 
 ## License
 
-This project is released under the MIT License. See [`LICENSE`](./LICENSE).
+This project is released under the MIT License. See [`LICENSE`](LICENSE).
