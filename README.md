@@ -1,5 +1,7 @@
 ﻿# Dendritic Contextual Routing
 
+Biologically-inspired contextual routing for continual learning and feature-conflict resolution.
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20061176.svg)](https://doi.org/10.5281/zenodo.20061176)
 
 Dendritic-inspired contextual routing with affine modulation and micro-replay for sequential feature-conflict learning.
