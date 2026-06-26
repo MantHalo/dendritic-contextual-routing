@@ -1,4 +1,4 @@
-# Dendritic v2 — final micro-buffer sweep tables
+# Dendritic v2 - final micro-buffer sweep tables
 
 ## Main performance table
 

@@ -1,4 +1,4 @@
-# Results Section — Dendritic v2 / SDFC Shared-Head
+# Results Section - Dendritic v2 / SDFC Shared-Head
 
 ## Controlled feature-conflict benchmark
 
@@ -19,10 +19,10 @@ h = gamma(context) * h_basal + beta(context)
 The separated affine dendritic variant implements the same functional primitive:
 
 ```text
-h = g(context) ⊙ h_basal + a(context)
+h = g(context) * h_basal + a(context)
 ```
 
-Across all replay budgets, `film_full` and `dendritic_affine_separate` remain statistically indistinguishable. This indicates that the relevant primitive is the combined additive–multiplicative modulation rather than the specific architectural framing.
+Across all replay budgets, `film_full` and `dendritic_affine_separate` remain empirically near-identical. This indicates that the relevant result is the combined additive-multiplicative modulation primitive. The dendritic framing provides an interpretable basal/contextual separation, but these experiments do not establish a performance advantage over FiLM.
 
 ## Sequential training without memory is fragile
 
@@ -32,7 +32,7 @@ For `film_full`, task 0 falls to approximately 28% final accuracy after the full
 
 ## Micro-replay nearly closes the gap to joint training
 
-A replay buffer containing only 2% of each task’s training set reduces forgetting from approximately 43% to nearly 1%, while raising final accuracy from about 64% to 95.4%, nearly matching joint training.
+A replay buffer containing only 2% of each task's training set reduces forgetting from approximately 43% to nearly 1%, while raising final accuracy from about 64% to 95.4%, nearly matching joint training.
 
 For `film_full`, task 0 recovers from 28% to 94% with a 2% replay buffer. This shows that the memory buffer directly counteracts the destructive sequential interference induced by feature-sign reversal.
 
@@ -44,7 +44,7 @@ Increasing the buffer beyond 2% yields only marginal gains:
 
 ## Architecture equivalence under replay
 
-The comparison between `film_full` and `dendritic_affine_separate` remains nearly identical at every replay level. This confirms that the affine dendritic variant successfully recovers the performance of FiLM-style contextual modulation.
+The comparison between `film_full` and `dendritic_affine_separate` remains nearly identical at every replay level. This supports functional equivalence between the two affine contextual implementations in this SDFC regime.
 
 ## Gate-similarity diagnostics
 

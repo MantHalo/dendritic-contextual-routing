@@ -6,6 +6,7 @@
 - [ ] `python -m src.main --make-benchmark --benchmark-seed 12345` works.
 - [ ] `python .\scripts\make_readme_figures.py` works.
 - [ ] `python -m pytest -q` works.
+- [ ] `notebooks/quick_sdfc_demo.ipynb` runs top to bottom.
 - [ ] `git status` returns a clean working tree.
 - [ ] Branch is `main`.
 
@@ -16,10 +17,15 @@
 - [ ] `configs/`
 - [ ] `artifacts/`
 - [ ] `docs/`
+- [ ] `docs/articles/`
+- [ ] `notebooks/`
 - [ ] `paper/`
 - [ ] `results/raw_csv/`
 - [ ] `results/main_tables/`
 - [ ] `README.md`
+- [ ] `docs/ANALYSIS.md`
+- [ ] `paper/preprint_dendritic_contextual_routing.md`
+- [ ] `notebooks/quick_sdfc_demo.ipynb`
 - [ ] `CITATION.cff`
 - [ ] `LICENSE`
 - [ ] `.gitignore`
@@ -43,7 +49,8 @@ Keep:
 - [ ] Description set.
 - [ ] Topics added.
 - [ ] README renders correctly.
-- [ ] README shows the overview figure, SDFC feature-conflict figure, accuracy plot, forgetting plot, and one accuracy matrix.
+- [ ] README shows compact overview, SDFC feature-conflict, and combined replay-summary figures without dominating the reading flow.
+- [ ] `docs/ANALYSIS.md` shows the accuracy matrices and gate-similarity diagnostics.
 - [ ] License detected.
 - [ ] Citation button works.
 - [ ] CI workflow passes.

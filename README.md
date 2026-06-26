@@ -4,13 +4,15 @@ Biologically-inspired contextual routing for continual learning and feature-conf
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20061176.svg)](https://doi.org/10.5281/zenodo.20061176)
 
-This repository introduces and evaluates a dendritic-inspired mechanism for contextual routing. To study when context becomes necessary, it also introduces the SDFC benchmark, where the same input features must be interpreted differently depending on task context.
+This repository introduces SDFC and evaluates a dendritic-inspired implementation of contextual affine routing. SDFC is a controlled benchmark where the same input features must be interpreted differently depending on task context.
 
 The main finding is simple:
 
 > Contextual affine modulation solves the feature-conflict structure; a 2% micro-replay buffer preserves it under sequential training.
 
-![Dendritic contextual routing overview](paper/figures/readme_overview.png)
+<p align="center">
+  <img src="paper/figures/readme_overview.png" alt="Dendritic contextual routing overview" width="560">
+</p>
 
 ## Why This Matters
 
@@ -20,13 +22,15 @@ SDFC, short for Same-Dimension Feature Conflict, turns this into a controlled be
 
 > When does contextual routing become functionally necessary, and what is required to preserve it under sequential training?
 
-![SDFC feature conflict](paper/figures/sdfc_feature_conflict.png)
+<p align="center">
+  <img src="paper/figures/sdfc_feature_conflict.png" alt="SDFC feature conflict" width="540">
+</p>
 
 ## Contribution
 
 - A compact feature-conflict benchmark for contextual learning.
-- A dendritic affine routing model that separates basal features from contextual modulation.
-- A controlled comparison against FiLM-style affine modulation.
+- A dendritic-inspired affine routing implementation that separates basal features from contextual modulation.
+- A controlled comparison against FiLM-style affine modulation, showing functional equivalence in this benchmark.
 - A micro-replay sweep showing that 2% replay nearly closes the sequential-learning gap.
 - Curated CSVs, figures, scripts, and citation metadata for reproducibility.
 
@@ -44,23 +48,25 @@ The dendritic affine variant implements the same functional primitive:
 h = g(context) * h_basal + a(context)
 ```
 
-In this benchmark, the architectural framing matters less than the primitive: context must transform the representation, not merely appear as another input feature.
+SDFC shows that the affine primitive is necessary for this feature-conflict structure. The dendritic separation offers an interpretable basal/contextual framing, but the current results do not show an empirical advantage over FiLM.
+
+## FiLM vs Dendritic Affine
+
+The supported conclusion is that `film_full` and `dendritic_affine_separate` are nearly indistinguishable across replay budgets. This repository should not be read as evidence that a dendritic implementation is superior to FiLM.
+
+The contribution is narrower: SDFC isolates a setting where context must modulate hidden representations, and the dendritic-inspired model recovers the same affine primitive through separated basal and contextual pathways. Efficiency, sparsity, and scaling advantages remain future work.
 
 ## Main Result
 
 Without replay, sequential training damages the contextual solution. With a buffer containing only 2% of each task's training set, final accuracy rises from about 64% to 95.4%, and average forgetting drops from about 43% to about 1%.
 
-![Accuracy versus replay budget](paper/figures/fig1a_accuracy_vs_replay.png)
-
-![Forgetting versus replay budget](paper/figures/fig1b_forgetting_vs_replay.png)
+<p align="center">
+  <img src="paper/figures/fig1_replay_summary.png" alt="Accuracy and forgetting versus replay budget" width="600">
+</p>
 
 The oldest mirror-conflicted task, task 0, recovers from about 28% to about 94% with only a 2% replay buffer.
 
-![FiLM accuracy matrix with 2 percent replay](paper/figures/fig2_matrix_film_full_replay2pct.png)
-
-Gate-similarity diagnostics suggest that replay stabilizes an already useful contextual routing structure rather than creating an entirely new one.
-
-![Gate similarity diagnostics](paper/figures/fig3_gate_similarity_readable.png)
+Detailed accuracy matrices, mirror-pair breakdowns, and gate-similarity diagnostics are in [`docs/ANALYSIS.md`](docs/ANALYSIS.md).
 
 ## Final Results
 
@@ -93,9 +99,20 @@ Replay budgets:
 - `results/raw_csv/` - curated raw CSV outputs.
 - `results/main_tables/` - final paper tables.
 - `paper/figures/` - final plots and README figures.
+- `docs/ANALYSIS.md` - detailed analysis of architecture equivalence, replay effects, and gate diagnostics.
+- `docs/articles/` - publication-ready English and French articles.
+- `notebooks/quick_sdfc_demo.ipynb` - short CPU demo for SDFC and replay.
+- `paper/preprint_dendritic_contextual_routing.md` - public v0 preprint draft.
 - `docs/README_REPRODUCIBILITY.md` - reproduction guide.
 - `docs/EXPERIMENT_LOG.md` - experiment history.
 - `CITATION.cff` - citation metadata.
+
+## Reading Path
+
+- Canonical article: [`docs/articles/why-context-must-modulate-representations.md`](docs/articles/why-context-must-modulate-representations.md)
+- French adaptation: [`docs/articles/pourquoi-le-contexte-doit-moduler-les-representations.md`](docs/articles/pourquoi-le-contexte-doit-moduler-les-representations.md)
+- Quick CPU demo: [`notebooks/quick_sdfc_demo.ipynb`](notebooks/quick_sdfc_demo.ipynb)
+- Public preprint draft: [`paper/preprint_dendritic_contextual_routing.md`](paper/preprint_dendritic_contextual_routing.md)
 
 ## Quick Start
 
@@ -118,7 +135,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_joint_smoke.p
 powershell -ExecutionPolicy Bypass -File .\scripts\run_sdfc_replay_microbuffer_smoke.ps1
 ```
 
-Regenerate README figures:
+Regenerate README and supporting analysis figures:
 
 ```powershell
 python .\scripts\make_readme_figures.py

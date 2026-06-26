@@ -89,17 +89,18 @@ epoch_diagnostics_summary.csv
 runs_summary.csv
 ```
 
-## Regenerate README Figures
+## Regenerate README And Analysis Figures
 
 ```powershell
 python .\scripts\make_readme_figures.py
 ```
 
-Expected README figure outputs:
+Expected figure outputs:
 
 ```text
 paper/figures/readme_overview.png
 paper/figures/sdfc_feature_conflict.png
+paper/figures/fig1_replay_summary.png
 paper/figures/fig3_gate_similarity_readable.png
 ```
 
@@ -152,6 +153,16 @@ The tracked tests are lightweight checks for deterministic benchmark generation,
 ```powershell
 python -m pytest -q
 ```
+
+## Demo Notebook
+
+The notebook is a quick CPU demonstration of the benchmark and replay path. It is not expected to reproduce the final multi-seed numbers.
+
+```powershell
+jupyter notebook .\notebooks\quick_sdfc_demo.ipynb
+```
+
+If Jupyter is not installed, the notebook can still be inspected as a documented workflow. The validation path for final results remains the CLI and tests above.
 
 ## Common Pitfalls
 

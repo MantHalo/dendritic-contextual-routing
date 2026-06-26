@@ -203,9 +203,58 @@ def make_gate_similarity_readable() -> Path:
     return out
 
 
+def make_replay_summary() -> Path:
+    csv_path = TABLE_DIR / "table_main_performance.csv"
+    df = pd.read_csv(csv_path).copy()
+    df = df.sort_values(["model", "replay_size_per_task"])
+    df["model_label"] = df["model"].map(
+        {
+            "film_full": "FiLM",
+            "dendritic_affine_separate": "Dendritic affine",
+        }
+    ).fillna(df["model"])
+
+    fig, axes = plt.subplots(1, 2, figsize=(10.6, 4.2), sharex=True)
+    colors = {"FiLM": "#2563eb", "Dendritic affine": "#f97316"}
+    metrics = [
+        ("accuracy_%", "Final accuracy (%)", "Accuracy rises sharply with 2% replay"),
+        ("forgetting_%", "Average forgetting (%)", "Forgetting nearly disappears"),
+    ]
+
+    for ax, (column, ylabel, title) in zip(axes, metrics):
+        for label, group in df.groupby("model_label", sort=False):
+            group = group.sort_values("replay_size_per_task")
+            ax.plot(
+                group["replay_size_per_task"],
+                group[column],
+                marker="o",
+                linewidth=2.2,
+                markersize=5.5,
+                label=label,
+                color=colors.get(label),
+            )
+        ax.set_title(title, fontsize=13, weight="bold")
+        ax.set_xlabel("Replay examples per task")
+        ax.set_ylabel(ylabel)
+        ax.set_xticks([0, 200, 500, 1000])
+        ax.grid(axis="y", alpha=0.28)
+        ax.spines[["top", "right"]].set_visible(False)
+
+    axes[0].set_ylim(55, 100)
+    axes[1].set_ylim(0, 50)
+    axes[0].legend(frameon=False, loc="lower right")
+    fig.suptitle("2% micro-replay preserves contextual routing", fontsize=15, weight="bold", y=1.02)
+
+    out = FIG_DIR / "fig1_replay_summary.png"
+    fig.tight_layout()
+    fig.savefig(out, dpi=180, bbox_inches="tight")
+    plt.close(fig)
+    return out
+
+
 def main() -> None:
     _setup()
-    outputs = [make_overview(), make_feature_conflict(), make_gate_similarity_readable()]
+    outputs = [make_overview(), make_feature_conflict(), make_replay_summary(), make_gate_similarity_readable()]
     for output in outputs:
         print(f"Wrote {output}")
 
