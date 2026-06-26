@@ -4,8 +4,6 @@ Biologically-inspired contextual routing for continual learning and feature-conf
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20061176.svg)](https://doi.org/10.5281/zenodo.20061176)
 
-Biologically inspired contextual routing for continual learning and feature-conflict resolution.
-
 This repository introduces and evaluates a dendritic-inspired mechanism for contextual routing. To study when context becomes necessary, it also introduces the SDFC benchmark, where the same input features must be interpreted differently depending on task context.
 
 The main finding is simple:
