@@ -11,7 +11,7 @@ The main finding is simple:
 > Contextual affine modulation solves the feature-conflict structure; a 2% micro-replay buffer preserves it under sequential training.
 
 <p align="center">
-  <img src="paper/figures/readme_overview.png" alt="Dendritic contextual routing overview" width="560">
+  <img src="paper/figures/readme_overview.png" alt="Dendritic contextual routing overview" width="680">
 </p>
 
 ## Why This Matters
@@ -23,7 +23,7 @@ SDFC, short for Same-Dimension Feature Conflict, turns this into a controlled be
 > When does contextual routing become functionally necessary, and what is required to preserve it under sequential training?
 
 <p align="center">
-  <img src="paper/figures/sdfc_feature_conflict.png" alt="SDFC feature conflict" width="540">
+  <img src="paper/figures/sdfc_feature_conflict.png" alt="SDFC feature conflict" width="660">
 </p>
 
 ## Contribution
@@ -61,7 +61,7 @@ The contribution is narrower: SDFC isolates a setting where context must modulat
 Without replay, sequential training damages the contextual solution. With a buffer containing only 2% of each task's training set, final accuracy rises from about 64% to 95.4%, and average forgetting drops from about 43% to about 1%.
 
 <p align="center">
-  <img src="paper/figures/fig1_replay_summary.png" alt="Accuracy and forgetting versus replay budget" width="600">
+  <img src="paper/figures/fig1_replay_summary.png" alt="Accuracy and forgetting versus replay budget" width="680">
 </p>
 
 The oldest mirror-conflicted task, task 0, recovers from about 28% to about 94% with only a 2% replay buffer.

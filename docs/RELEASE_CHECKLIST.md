@@ -49,7 +49,7 @@ Keep:
 - [ ] Description set.
 - [ ] Topics added.
 - [ ] README renders correctly.
-- [ ] README shows compact overview, SDFC feature-conflict, and combined replay-summary figures without dominating the reading flow.
+- [ ] README figures are large enough to read but do not dominate the reading flow.
 - [ ] `docs/ANALYSIS.md` shows the accuracy matrices and gate-similarity diagnostics.
 - [ ] License detected.
 - [ ] Citation button works.

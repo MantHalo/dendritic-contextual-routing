@@ -206,33 +206,32 @@ def make_gate_similarity_readable() -> Path:
 def make_replay_summary() -> Path:
     csv_path = TABLE_DIR / "table_main_performance.csv"
     df = pd.read_csv(csv_path).copy()
-    df = df.sort_values(["model", "replay_size_per_task"])
-    df["model_label"] = df["model"].map(
-        {
-            "film_full": "FiLM",
-            "dendritic_affine_separate": "Dendritic affine",
-        }
-    ).fillna(df["model"])
+    summary = (
+        df.groupby("replay_size_per_task", as_index=False)
+        .agg(
+            accuracy_mean=("accuracy_%", "mean"),
+            accuracy_min=("accuracy_%", "min"),
+            accuracy_max=("accuracy_%", "max"),
+            forgetting_mean=("forgetting_%", "mean"),
+            forgetting_min=("forgetting_%", "min"),
+            forgetting_max=("forgetting_%", "max"),
+        )
+        .sort_values("replay_size_per_task")
+    )
 
-    fig, axes = plt.subplots(1, 2, figsize=(10.6, 4.2), sharex=True)
-    colors = {"FiLM": "#2563eb", "Dendritic affine": "#f97316"}
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 3.7), sharex=True)
     metrics = [
-        ("accuracy_%", "Final accuracy (%)", "Accuracy rises sharply with 2% replay"),
-        ("forgetting_%", "Average forgetting (%)", "Forgetting nearly disappears"),
+        ("accuracy", "Final accuracy (%)", "Accuracy rises sharply with 2% replay"),
+        ("forgetting", "Average forgetting (%)", "Forgetting nearly disappears"),
     ]
 
-    for ax, (column, ylabel, title) in zip(axes, metrics):
-        for label, group in df.groupby("model_label", sort=False):
-            group = group.sort_values("replay_size_per_task")
-            ax.plot(
-                group["replay_size_per_task"],
-                group[column],
-                marker="o",
-                linewidth=2.2,
-                markersize=5.5,
-                label=label,
-                color=colors.get(label),
-            )
+    for ax, (prefix, ylabel, title) in zip(axes, metrics):
+        x = summary["replay_size_per_task"]
+        y = summary[f"{prefix}_mean"]
+        ymin = summary[f"{prefix}_min"]
+        ymax = summary[f"{prefix}_max"]
+        ax.fill_between(x, ymin, ymax, color="#bfdbfe", alpha=0.65, label="FiLM/dendritic range")
+        ax.plot(x, y, marker="o", linewidth=2.6, markersize=6.0, color="#1d4ed8", label="Mean")
         ax.set_title(title, fontsize=13, weight="bold")
         ax.set_xlabel("Replay examples per task")
         ax.set_ylabel(ylabel)
@@ -242,11 +241,11 @@ def make_replay_summary() -> Path:
 
     axes[0].set_ylim(55, 100)
     axes[1].set_ylim(0, 50)
-    axes[0].legend(frameon=False, loc="lower right")
+    axes[0].legend(frameon=False, loc="lower right", fontsize=9)
     fig.suptitle("2% micro-replay preserves contextual routing", fontsize=15, weight="bold", y=1.02)
 
     out = FIG_DIR / "fig1_replay_summary.png"
-    fig.tight_layout()
+    fig.tight_layout(pad=1.2)
     fig.savefig(out, dpi=180, bbox_inches="tight")
     plt.close(fig)
     return out
