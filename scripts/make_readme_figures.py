@@ -210,11 +210,7 @@ def make_replay_summary() -> Path:
         df.groupby("replay_size_per_task", as_index=False)
         .agg(
             accuracy_mean=("accuracy_%", "mean"),
-            accuracy_min=("accuracy_%", "min"),
-            accuracy_max=("accuracy_%", "max"),
             forgetting_mean=("forgetting_%", "mean"),
-            forgetting_min=("forgetting_%", "min"),
-            forgetting_max=("forgetting_%", "max"),
         )
         .sort_values("replay_size_per_task")
     )
@@ -228,10 +224,7 @@ def make_replay_summary() -> Path:
     for ax, (prefix, ylabel, title) in zip(axes, metrics):
         x = summary["replay_size_per_task"]
         y = summary[f"{prefix}_mean"]
-        ymin = summary[f"{prefix}_min"]
-        ymax = summary[f"{prefix}_max"]
-        ax.fill_between(x, ymin, ymax, color="#bfdbfe", alpha=0.65, label="FiLM/dendritic range")
-        ax.plot(x, y, marker="o", linewidth=2.6, markersize=6.0, color="#1d4ed8", label="Mean")
+        ax.plot(x, y, marker="o", linewidth=2.6, markersize=6.0, color="#1d4ed8")
         ax.set_title(title, fontsize=13, weight="bold")
         ax.set_xlabel("Replay examples per task")
         ax.set_ylabel(ylabel)
@@ -241,8 +234,15 @@ def make_replay_summary() -> Path:
 
     axes[0].set_ylim(55, 100)
     axes[1].set_ylim(0, 50)
-    axes[0].legend(frameon=False, loc="lower right", fontsize=9)
     fig.suptitle("2% micro-replay preserves contextual routing", fontsize=15, weight="bold", y=1.02)
+    fig.text(
+        0.5,
+        -0.02,
+        "Mean of FiLM and dendritic affine; the two curves overlap almost exactly in the final sweep.",
+        ha="center",
+        fontsize=10,
+        color="#374151",
+    )
 
     out = FIG_DIR / "fig1_replay_summary.png"
     fig.tight_layout(pad=1.2)

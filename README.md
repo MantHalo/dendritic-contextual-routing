@@ -64,6 +64,8 @@ Without replay, sequential training damages the contextual solution. With a buff
   <img src="paper/figures/fig1_replay_summary.png" alt="Accuracy and forgetting versus replay budget" width="680">
 </p>
 
+<p align="center"><em>Mean of FiLM and dendritic affine; the two models overlap almost exactly in the final sweep.</em></p>
+
 The oldest mirror-conflicted task, task 0, recovers from about 28% to about 94% with only a 2% replay buffer.
 
 Detailed accuracy matrices, mirror-pair breakdowns, and gate-similarity diagnostics are in [`docs/ANALYSIS.md`](docs/ANALYSIS.md).
